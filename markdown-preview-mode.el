@@ -66,10 +66,6 @@
 (defvar markdown-preview--remote-clients nil
   "List of `markdown-preview' websocket remote clients.")
 
-(defvar markdown-preview--preview-url
-  (concat (file-name-directory load-file-name) "preview.html")
-  "Location of `markdown-preview' html.")
-
 (defvar markdown-preview--idle-timer nil
   "Preview idle timer.")
 
@@ -79,6 +75,13 @@
 We capture this here so that `load-file-name' is evaluated once, when
 this package file is loaded for the first time.  That variable will be
 nil or have the wrong value if evaluated later.")
+
+(defun markdown-preview--preview-url ()
+  "Get the appropriate markdown preview URL (path to the template file)."
+  (if (= 0 (length markdown-preview-template))
+      (concat (file-name-directory markdown-preview--load-file) "preview.html")
+    markdown-preview-template))
+
 (defun markdown-preview--stop-idle-timer ()
   "Stop the `markdown-preview' idle timer."
   (when (timerp markdown-preview--idle-timer)
@@ -86,7 +89,7 @@ nil or have the wrong value if evaluated later.")
 
 (defun markdown-preview--open-browser-preview ()
   "Open the markdown preview in the browser."
-  (browse-url markdown-preview--preview-url))
+  (browse-url (markdown-preview--preview-url)))
 
 (defun markdown-preview--stop-websocket-server ()
   "Stop the `markdown-preview' websocket server."
