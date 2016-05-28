@@ -51,6 +51,12 @@
   :group 'markdown-preview
   :type 'string)
 
+(defcustom markdown-preview-template
+  ""
+  "The absolute path to an HTML template used to build the preview."
+  :group 'markdown-preview
+  :type 'string)
+
 (defvar markdown-preview--websocket-server nil
   "`markdown-preview' Websocket server.")
 
