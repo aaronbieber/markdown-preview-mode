@@ -67,6 +67,12 @@
 (defvar markdown-preview--idle-timer nil
   "Preview idle timer.")
 
+(defvar markdown-preview--load-file load-file-name
+  "The full path to the markdown preview package file.
+
+We capture this here so that `load-file-name' is evaluated once, when
+this package file is loaded for the first time.  That variable will be
+nil or have the wrong value if evaluated later.")
 (defun markdown-preview--stop-idle-timer ()
   "Stop the `markdown-preview' idle timer."
   (when (timerp markdown-preview--idle-timer)
